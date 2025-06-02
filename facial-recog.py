@@ -3,6 +3,7 @@ import cv2
 
 face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
 smile_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_smile.xml')
+eye_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_eye.xml')
 
 
 cap = cv2.VideoCapture(0)
@@ -33,6 +34,15 @@ while True:
        
             print("Smile detected! Sending command to swarm...")
 
+        eyes = eye_cascade.detectMultiScale(roi_gray)
+
+        for (ex, ey, ew, eh) in eyes:
+            cv2.rectangle(frame, (x + ex, y + ey), (x + ex + ew, y + ey + eh), (255, 255, 0), 2)
+
+            
+
+
+
 
 
     cv2.imshow('Smile Detection', frame)
@@ -44,4 +54,3 @@ while True:
 
 cap.release()
 cv2.destroyAllWindows()
-
